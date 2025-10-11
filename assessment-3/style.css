@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 3em;
+}
+
+nav {
+    display: block;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    position: fixed;
+}
+
+nav a {
+    text-decoration: none;
+    color: #999;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    color: #333;
+}
+
+.active {
+    font-weight: bold;
+    color: black;
+}
+
+main {
+    width: 70%;
+    position: relative;
+    float: right;
+}
+
+h1 {
+    text-align: right;
+}
+
+h2 {
+    color: #999;
+    text-align: right;
+    margin-top: -1em;
+}
+
+h3 {
+    color: #999;
+}
+
+main img {
+    width: 100%;
+}
+
+.works {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 15px;
+}
+
+.works img {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.works img:hover {
+    opacity: 0.5;
+}
+
+footer {
+    margin-top: 5em;
+    display: block;
+    padding: 2em;
+    text-align: right;
+    color: #999;
+}
