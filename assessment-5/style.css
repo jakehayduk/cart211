@@ -91,6 +91,12 @@ footer {
     height: 100%;
     object-fit: cover;
     display: block;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.grid img:hover {
+    opacity: 0.7;
 }
 
 .img-1 {
