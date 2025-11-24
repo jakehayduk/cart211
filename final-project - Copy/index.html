@@ -9,33 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        // import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-        // import { getAuth } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-        // import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyDRsB2Oo5VMAOTw3YhbKQJ2sWLOYP6J7HA",
-            authDomain: "data-block-2a573.firebaseapp.com",
-            projectId: "data-block-2a573",
-            storageBucket: "data-block-2a573.firebasestorage.app",
-            messagingSenderId: "245572030000",
-            appId: "1:245572030000:web:c7330abc7ac7f89ab367f5",
-            measurementId: "G-G6FTR866B4"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
-    <script src="./script.js" defer></script>
 </head>
 <body>
     <nav>
@@ -80,3 +53,32 @@
         </div>
     </div>
 </body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getFirestore } from "firebase/firestore";
+  import { } from 'firebase/auth';
+  import { } from 'firebase/functions';
+  import { } from 'firebase/storage';
+  import { } from 'firebase/data-connect';
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDRsB2Oo5VMAOTw3YhbKQJ2sWLOYP6J7HA",
+    authDomain: "data-block-2a573.firebaseapp.com",
+    projectId: "data-block-2a573",
+    storageBucket: "data-block-2a573.firebasestorage.app",
+    messagingSenderId: "245572030000",
+    appId: "1:245572030000:web:c7330abc7ac7f89ab367f5",
+    measurementId: "G-G6FTR866B4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+<script src="./script.js"></script>

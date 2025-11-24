@@ -141,17 +141,8 @@ $(document).ready(function() {
         }
     });
 
-    // Initialize Firebase
-    
+    // FIREBASE
+
+    const app = firebase.app();
+    console.log(app);
 })
-
-    const db = firebase.firestore();
-    console.log(db);
-
-// document.addEventListener("DOMContentLoaded", event => {
-//     // FIREBASE
-
-//     const db = getFirestore.app();
-//     console.log(db);
-// })
-
