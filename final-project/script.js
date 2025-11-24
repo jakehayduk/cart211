@@ -39,16 +39,19 @@ $(document).ready(function() {
             $('.data-4').text(answers[3]);
             $('.data-5').text(answers[4]);
             $('.data-6').text(answers[5]);
-            $('.cube').css('animation', 'cube-in 1s')
+            $('.cube').css('animation', 'cube-in 1s');
+            addData();
         }
     }
 
     $('.nav-button').on('click', function() {
         $('.modal').css('display', 'grid');
+        $('.modal-close').show();
     })
     
     $('.modal-close').on('click', function() {
         $('.modal').hide();
+        $('.modal-close').hide();
     })
 
     // CUBE
@@ -141,17 +144,45 @@ $(document).ready(function() {
         }
     });
 
-    // Initialize Firebase
+    // FIREBASE DATABASE
     
-})
-
     const db = firebase.firestore();
-    console.log(db);
 
-// document.addEventListener("DOMContentLoaded", event => {
-//     // FIREBASE
+    let blocksRef;
+    let unsubscribe;
+    
+    blocksRef = db.collection('blocks');
 
-//     const db = getFirestore.app();
-//     console.log(db);
-// })
+    function addData() {
 
+        const { serverTimestamp } = firebase.firestore.FieldValue;
+
+        blocksRef.add({
+            name: answers[0],
+            city: answers[1],
+            age: answers[2],
+            criteria: answers[3],
+            friend: answers[4],
+            goal: answers[5],
+            timestamp: serverTimestamp()
+        })
+    }
+
+    blocksRef.onSnapshot(querySnapshot => {
+        $('.modal').html('');
+        
+        querySnapshot.docs.forEach((doc) => {
+
+            const data = doc.data();
+            const docID = doc.id;
+
+            $('.modal').append("<div class='data-block' id='" + doc.id + "'><img src='./images/logo.png'><div><h3>" + data.name + "</h3><small class='identifier'>" + doc.id + "</small><br><small>" + Date(data.timestamp) + "</small></div></div>")
+
+            // $('.data-block').html($('.data-block').html() + '<li>' + data.name + '</li>');
+        })
+    })
+
+    $('body').on('click', '.data-block', function() {
+        console.log($(this).attr('id'));
+    })
+})
