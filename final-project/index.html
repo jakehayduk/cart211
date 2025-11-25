@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Blocks</title>
+    <link rel="icon" type="image/x-icon" href=".//images/logo.png">
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,16 +13,6 @@
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        // import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-        // import { getAuth } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-        // import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyDRsB2Oo5VMAOTw3YhbKQJ2sWLOYP6J7HA",
             authDomain: "data-block-2a573.firebaseapp.com",
@@ -39,7 +30,7 @@
 </head>
 <body>
     <nav>
-        <img src="./images/logo.png" alt="logo">
+        <img src="./images/logo.png" alt="logo" class="logo">
         <button class="nav-button">Blocks&nbsp;Database&nbsp;&twoheadrightarrow;</button>
     </nav>
     <main>
@@ -65,11 +56,15 @@
                     <div class="face bottom"><p class="data-6">data-6</p></div>
                 </div>
             </div>
-            <p>Your Data Block has been sold on the market!</p>
+            <p>Your Data Block has been sold on the market!
+                <br><span class="sold-amount">+ $5.00</span>
+            </p>
         </div>
     </main>
     <div class="modal">
-        
+        <div class="modal-content">
+
+        </div>
     </div>
     <button class="modal-close">
         <div class="line line-1"></div>
@@ -80,5 +75,16 @@
             <div class="line line-1"></div>
             <div class="line line-2"></div>
         </button>
+        <h2></h2>
+        <div class="container">
+            <div class="cube cube-2">
+                <div class="face front"><p class="modal-cube-data-1">data-1</p></div>
+                <div class="face back"><p class="modal-cube-data-2">data-2</p></div>
+                <div class="face top"><p class="modal-cube-data-3">data-3</p></div>
+                <div class="face right"><p class="modal-cube-data-4">data-4</p></div>
+                <div class="face left"><p class="modal-cube-data-5">data-5</p></div>
+                <div class="face bottom"><p class="modal-cube-data-6">data-6</p></div>
+            </div>
+        </div>
     </div>
 </body>

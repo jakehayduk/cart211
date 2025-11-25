@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     let answers = []
     let question = 0;
+    let soldValue = 0;
+    let darkMode = false;
 
     let survey = ["What is your name?", "What city were you born in?", "How old are you?", "When looking for a new product or service, what is your primary decision-making criteria?", "What is your childhood friend's name?", "If you were guaranteed to succeed, what is one major life goal you would pursue in the next 12 months?"]
 
@@ -15,6 +17,24 @@ $(document).ready(function() {
 
     $('.next-button').on('click', function() {
         next();
+    })
+
+    $('.logo').on('click', function() {
+        if (darkMode == false) {
+            darkMode = true;
+            $(':root').css('--primary', 'white');
+            $(':root').css('--secondary', 'black');
+            $('.logo').css('filter', 'invert()');
+            $('.data-block-left img').css('filter', 'invert()');
+        }
+
+        else {
+            darkMode = false;
+            $(':root').css('--primary', 'black');
+            $(':root').css('--secondary', 'white');
+            $('.logo').css('filter', 'none');
+            $('.data-block-left img').css('filter', 'none');
+        }
     })
 
     $(document).on('keypress',function(e) {
@@ -39,6 +59,8 @@ $(document).ready(function() {
             $('.data-4').text(answers[3]);
             $('.data-5').text(answers[4]);
             $('.data-6').text(answers[5]);
+            soldValue = Math.floor(Math.random() * (10 * 100 - 1 * 100) + 1 * 100) / (1*100)
+            $('.sold-amount').text('+ $' + soldValue);
             $('.cube').css('animation', 'cube-in 1s');
             addData();
         }
@@ -164,25 +186,50 @@ $(document).ready(function() {
             criteria: answers[3],
             friend: answers[4],
             goal: answers[5],
+            price: soldValue,
             timestamp: serverTimestamp()
         })
     }
 
     blocksRef.onSnapshot(querySnapshot => {
-        $('.modal').html('');
+        $('.modal-content').html('');
         
         querySnapshot.docs.forEach((doc) => {
 
             const data = doc.data();
-            const docID = doc.id;
 
-            $('.modal').append("<div class='data-block' id='" + doc.id + "'><img src='./images/logo.png'><div><h3>" + data.name + "</h3><small class='identifier'>" + doc.id + "</small><br><small>" + Date(data.timestamp) + "</small></div></div>")
+            $('.modal-content').append("<div class='data-block' id='" + doc.id + "'><div class='data-block-left'><img src='./images/logo.png'><span>Sold for $" + data.price + "</span></div><div><h3>" + data.name + "</h3><small class='identifier'>" + doc.id + "</small><br><small>" + Date(data.timestamp) + "</small></div></div>")
 
             // $('.data-block').html($('.data-block').html() + '<li>' + data.name + '</li>');
         })
     })
 
     $('body').on('click', '.data-block', function() {
-        console.log($(this).attr('id'));
+        
+        let docRef = blocksRef.doc($(this).attr('id'));
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
+                $('.modal-cube-data-1').text(data.name);
+                $('.modal-cube-data-2').text(data.city);
+                $('.modal-cube-data-3').text(data.age);
+                $('.modal-cube-data-4').text(data.criteria);
+                $('.modal-cube-data-5').text(data.friend);
+                $('.modal-cube-data-6').text(data.goal);
+
+                $('.modal-cube h2').text(data.name + '\'s data block');
+
+                $('.modal-cube').css('display', 'flex');
+                $('.modal-cube-close').show();
+            }
+            else {
+                console.log('No such document.');
+            }
+        })
+    })
+
+    $('.modal-cube-close').on('click', function() {
+        $('.modal-cube').hide();
+        $('.modal-cube-close').hide();
     })
 })
