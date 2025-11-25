@@ -5,20 +5,7 @@ $(document).ready(function() {
     let soldValue = 0;
     let darkMode = false;
 
-    let survey = ["What is your name?", "What city were you born in?", "How old are you?", "When looking for a new product or service, what is your primary decision-making criteria?", "What is your childhood friend's name?", "If you were guaranteed to succeed, what is one major life goal you would pursue in the next 12 months?"]
-
-    $('.start-button').on('click', function() {
-        $('.start-screen').hide();
-        $('.survey').css('display', 'flex');
-        
-        $('.question').text(survey[question]);
-        question++;
-    })
-
-    $('.next-button').on('click', function() {
-        next();
-    })
-
+    // Click the logo to toggle dark mode
     $('.logo').on('click', function() {
         if (darkMode == false) {
             darkMode = true;
@@ -37,12 +24,30 @@ $(document).ready(function() {
         }
     })
 
+    // Survey questions
+    let survey = ["What is your name?", "What city were you born in?", "How old are you?", "When looking for a new product or service, what is your primary decision-making criteria?", "What is your childhood friend's name?", "If you were guaranteed to succeed, what is one major life goal you would pursue in the next 12 months?"]
+
+    // Start survey
+    $('.start-button').on('click', function() {
+        $('.start-screen').hide();
+        $('.survey').css('display', 'flex');
+        
+        $('.question').text(survey[question]);
+        question++; //advance to the next question
+    })
+
+    // Next button or enter key to go to the next question
+    $('.next-button').on('click', function() {
+        next();
+    })
+
     $(document).on('keypress',function(e) {
         if(e.which == 13) {
             next();
         }
     });
 
+    // Handles the next question, pushing each answer into the answers array
     function next() {
         if ($('.answer').val().length > 1 && question < 7) {
             $('.question').text(survey[question]);
@@ -50,6 +55,7 @@ $(document).ready(function() {
             $('.answer').val('');
             question++;
         }
+        // end the survey
         if (question > 6) {
             $('.survey').hide();
             $('.end-screen').css('display', 'flex');
@@ -62,10 +68,12 @@ $(document).ready(function() {
             soldValue = Math.floor(Math.random() * (10 * 100 - 1 * 100) + 1 * 100) / (1*100)
             $('.sold-amount').text('+ $' + soldValue);
             $('.cube').css('animation', 'cube-in 1s');
+            // send the array data to Firebase
             addData();
         }
     }
 
+    // Modal
     $('.nav-button').on('click', function() {
         $('.modal').css('display', 'grid');
         $('.modal-close').show();
@@ -76,7 +84,7 @@ $(document).ready(function() {
         $('.modal-close').hide();
     })
 
-    // CUBE
+    // The cube
 
     let initialX = -20;
     let initialY = -20;
@@ -91,6 +99,7 @@ $(document).ready(function() {
     let dragging = false;
     let zoom = 1.4;
 
+    // Mobile touches
     $(document).on('touchstart', function(e) {
         dragging = true;
         xSave = e.touches[0].clientX;
@@ -111,6 +120,7 @@ $(document).ready(function() {
         }
     })
 
+    // Standard mouse functions
     $(document).mousedown(function(e) {
         dragging = true;
         xSave = e.pageX;
@@ -131,6 +141,7 @@ $(document).ready(function() {
         }
     })
 
+    // Interpolate for smooth, easing motion
     setInterval(function() {
         x3 = lerp(x3, x, 0.03);
         y3 = lerp(y3, y, 0.03);
@@ -144,6 +155,7 @@ $(document).ready(function() {
         return (1 - n) * a + n * b;
     }
 
+    // Zooming function
     $(window).bind('mousewheel', function(event) {
         if (zoom <= 1.4 && zoom >= 0.5) {
             if (event.originalEvent.wheelDelta >= 0) {
@@ -164,17 +176,22 @@ $(document).ready(function() {
         else if (zoom < 0.5) {
             zoom = 0.5;
         }
+
+        // Hide the tip saying to use the scroll wheel if you're already using it while the modal is open
+        if ($('.modal-cube').css('display') == 'flex') {
+            $('.tip').hide();
+        }
     });
 
-    // FIREBASE DATABASE
+    // Firebase Database
     
     const db = firebase.firestore();
 
     let blocksRef;
-    let unsubscribe;
     
     blocksRef = db.collection('blocks');
 
+    // Uploads data once survey is completed
     function addData() {
 
         const { serverTimestamp } = firebase.firestore.FieldValue;
@@ -191,19 +208,28 @@ $(document).ready(function() {
         })
     }
 
+    // Data is updated in real time
     blocksRef.onSnapshot(querySnapshot => {
         $('.modal-content').html('');
         
+        // Create and display a "data-block" for each array of data in the database 
         querySnapshot.docs.forEach((doc) => {
 
             const data = doc.data();
 
             $('.modal-content').append("<div class='data-block' id='" + doc.id + "'><div class='data-block-left'><img src='./images/logo.png'><span>Sold for $" + data.price + "</span></div><div><h3>" + data.name + "</h3><small class='identifier'>" + doc.id + "</small><br><small>" + Date(data.timestamp) + "</small></div></div>")
-
-            // $('.data-block').html($('.data-block').html() + '<li>' + data.name + '</li>');
         })
     })
 
+    // Get the top seller
+    blocksRef.orderBy("price", "desc").limit(1).onSnapshot(querySnapshot => {
+        querySnapshot.docs.forEach((doc) => {
+            const data = doc.data();
+            $('.top-seller').html('<b>' + data.name + '</b> is the top seller! ($' + data.price + ')');
+        })
+    })
+
+    // When a "data-block" is clicked, bring up the relevant information on the viewable 3D cube in another modal window
     $('body').on('click', '.data-block', function() {
         
         let docRef = blocksRef.doc($(this).attr('id'));
@@ -221,6 +247,14 @@ $(document).ready(function() {
 
                 $('.modal-cube').css('display', 'flex');
                 $('.modal-cube-close').show();
+
+                // Reset the cube's location in 3D space
+                x = 0;
+                y = 0;
+                x2 = 0;
+                y2 = 0;
+                zoom = 1.2;
+                $('.container').css('transform', 'scale(' + zoom + ')');
             }
             else {
                 console.log('No such document.');

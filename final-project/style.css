@@ -334,6 +334,7 @@ p {
     color: var(--secondary);
     margin-top: -100px;
     text-align: center;
+    width: 80%;
 }
 
 .modal-cube-close {
@@ -356,6 +357,51 @@ p {
     color: var(--secondary);
 }
 
+.tip {
+    display: block;
+    color: var(--secondary);
+    font-size: 1rem;
+    font-style: italic;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    animation: tip 10s 1s;
+    opacity: 0;
+}
+
+@keyframes tip {
+    0% {
+        opacity: 0.5;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 0.5;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.top-seller {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    text-align: right;
+    font-size: 1rem;
+}
 
 /* MEDIA QUERIES */
 
@@ -367,5 +413,24 @@ p {
         gap: 10px;
         overflow-y: auto;
         padding-right: 10px;
+    }
+
+    .tip {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .modal-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: min-content;
+        gap: 10px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    :root {
+        --size: 250px;
     }
 }
