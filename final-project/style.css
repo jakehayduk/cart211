@@ -66,6 +66,12 @@ button:hover {
     opacity: 0.7;
 }
 
+.nav-button {
+    font-size: 1rem;
+    width: min-content;
+    padding: 0.8rem 1rem 0.8rem 1rem;
+}
+
 .start-screen {
     display: flex;
     flex-direction: column;
