@@ -270,8 +270,7 @@ p {
     text-align: center;
     font-size: 1.25rem;
     position: absolute;
-    /* background-color: rgba(0, 0, 0, 0.2); */
-    opacity: 0.8;
+    opacity: 1;
     user-select: none;
     transition: all 0.3s;
     display: flex;
@@ -293,26 +292,32 @@ p {
 
 .front {
     transform: translateZ(calc(var(--size) / 2));
+    background-color: rgba(50, 50, 175, 0.7);
 }
 
 .back {
     transform: rotateY(180deg) translateZ(calc(var(--size) / 2));
+    background-color: rgba(175, 100, 50, 0.7);
 }
 
 .top {
     transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
+    background-color: rgba(50, 175, 165, 0.7);
 }
 
 .right {
     transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
+    background-color: rgba(50, 175, 56, 0.7);
 }
 
 .left {
     transform: rotateY(-90deg) translateZ(calc(var(--size) / 2));
+    background-color: rgba(175, 50, 50, 0.7);
 }
 
 .bottom {
     transform: rotateX(-90deg) translateZ(calc(var(--size) / 2));
+    background-color: rgba(156, 175, 50, 0.7);
 }
 
 .modal-cube {
