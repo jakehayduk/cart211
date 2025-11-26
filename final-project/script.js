@@ -204,7 +204,7 @@ $(document).ready(function() {
             friend: answers[4],
             goal: answers[5],
             price: soldValue,
-            timestamp: serverTimestamp()
+            timestamp: Date()
         })
     }
 
@@ -217,7 +217,7 @@ $(document).ready(function() {
 
             const data = doc.data();
 
-            $('.modal-content').append("<div class='data-block' id='" + doc.id + "'><div class='data-block-left'><img src='./images/logo.png'><span>Sold for $" + data.price + "</span></div><div><h3>" + data.name + "</h3><small class='identifier'>" + doc.id + "</small><br><small>" + Date(data.timestamp) + "</small></div></div>")
+            $('.modal-content').append("<div class='data-block' id='" + doc.id + "'><div class='data-block-left'><img src='./images/logo.png'><span>Sold for $" + data.price + "</span></div><div><h3>" + data.name + "</h3><small class='identifier'>" + doc.id + "</small><br><small>" + data.timestamp + "</small></div></div>")
         })
     })
 
