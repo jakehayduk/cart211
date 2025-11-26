@@ -204,7 +204,7 @@ $(document).ready(function() {
             friend: answers[4],
             goal: answers[5],
             price: soldValue,
-            timestamp: Date()
+            timestamp: serverTimestamp()
         })
     }
 
